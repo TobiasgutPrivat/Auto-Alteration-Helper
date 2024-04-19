@@ -16,11 +16,13 @@ void RenderMenu() {
 
 void RenderInterface() {
     if (UI::Begin(PluginName, showInterface, UI::WindowFlags::AlwaysAutoResize)) {
+        //TODO Add available Configurations
         UI::Text("Enter Configuration FileName");
         ConfigurationPath = UI::InputText("##ConfigurationPath", ConfigurationPath, UI::InputTextFlags::None);
         UI::SameLine();
         if (UI::Button("Enter")){
-            runConfiguration(IO::FromStorageFolder(ConfigurationPath) + ".json");
+            //Start Alterationprocess
+            runFromPath(IO::FromStorageFolder(ConfigurationPath) + ".json");
         };  
     };
     UI::Separator();
