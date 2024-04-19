@@ -1,7 +1,7 @@
 const string PluginName = "Alteration Automation";
 bool showInterface;
 
-string commandInput;
+string ConfigurationPath;
 
 void RenderMenu() { 
     if (UI::MenuItem(PluginName)) {
@@ -15,10 +15,11 @@ void RenderMenu() {
 
 void RenderInterface() {
     if (UI::Begin(PluginName, showInterface, UI::WindowFlags::AlwaysAutoResize)) {
-        commandInput = UI::InputText("##Command", commandInput, UI::InputTextFlags::None);
+        UI::Text("Enter Configuration FilePath");
+        ConfigurationPath = UI::InputText("##ConfigurationPath", ConfigurationPath, UI::InputTextFlags::None);
         UI::SameLine();
         if (UI::Button("Enter")){
-            runCommand(commandInput);
+            runConfiguration(ConfigurationPath);
         };  
     }
     UI::End();

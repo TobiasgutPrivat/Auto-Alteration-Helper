@@ -1,4 +1,4 @@
-void runCommand(string command)
+void runConfiguration(string path)
 {
-   print(command);
+   readFile(path)
 }
