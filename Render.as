@@ -1,5 +1,6 @@
 const string PluginName = "Alteration Automation";
 bool showInterface;
+Json::Value response = Json::Array();
 
 string ConfigurationPath;
 
@@ -19,8 +20,24 @@ void RenderInterface() {
         ConfigurationPath = UI::InputText("##ConfigurationPath", ConfigurationPath, UI::InputTextFlags::None);
         UI::SameLine();
         if (UI::Button("Enter")){
-            runConfiguration(ConfigurationPath);
+            runConfiguration(IO::FromStorageFolder(ConfigurationPath));
         };  
+    };
+    UI::Separator();
+    UI::Text("Response");
+    for(uint i = 0; i < response.Length; i++){
+        UI::Text(response[i]);
     }
+    if (UI::Button("Clear")){
+        response = Json::Array();
+    };  
     UI::End();
+}
+
+void sendError(string message){
+    print("Error: " + message);
+    response.Add("Error: " + message);
+}
+void sendResponse(string message){
+    response.Add(message);
 }
