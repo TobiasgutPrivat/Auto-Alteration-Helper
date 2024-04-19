@@ -1,7 +1,7 @@
 [meta]
-name = "Test Plugin"
+name = "Alteration Automation"
 author = "Tobias2g"
-category = "Testing"
+category = "Development"
 version = "1.0.0"
 [script]
-dependencies = [ "MLHook", "MLFeedRaceData" ]
+dependencies = []
