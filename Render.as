@@ -16,15 +16,15 @@ void RenderMenu() {
 
 void RenderInterface() {
     if (UI::Begin(PluginName, showInterface, UI::WindowFlags::AlwaysAutoResize)) {
-        UI::Text("Enter Configuration FilePath");
+        UI::Text("Enter Configuration FileName");
         ConfigurationPath = UI::InputText("##ConfigurationPath", ConfigurationPath, UI::InputTextFlags::None);
         UI::SameLine();
         if (UI::Button("Enter")){
-            runConfiguration(IO::FromStorageFolder(ConfigurationPath));
+            runConfiguration(IO::FromStorageFolder(ConfigurationPath) + ".json");
         };  
     };
     UI::Separator();
-    UI::Text("Response");
+    UI::Text("Response:");
     for(uint i = 0; i < response.Length; i++){
         UI::Text(response[i]);
     }

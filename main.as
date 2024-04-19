@@ -4,7 +4,7 @@ void runConfiguration(string path)
     if(IO::FileExists(path)) {
         Configuration = Json::FromFile(path);
     } else {
-        sendError("File doesnt exist");
+        sendError("File doesnt exist.\nMake sure to use a Filename of a json File without Fileextension\n(MyFileName.json -> MyFileName)");
         return;
     }
 
