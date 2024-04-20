@@ -1,3 +1,5 @@
+auto app = cast<CTrackMania>(GetApp());
+
 void runFromPath(string path)
 {
    Json::Value Configuration;
@@ -27,6 +29,14 @@ void runFromJson(Json::Value Configuration) {
    {
         Altermap(jsonGetObject(Configuration, "Settings"));
    }
+   else if (action == 'openEditor')
+   {
+        openEditor(jsonGetString(Configuration, "Settings"));
+   }
+   else if (action == 'saveMap')
+   {
+      saveMap(Configuration["Settings"]);
+   }
    else
    {
       throw("No Valid ActionName: " + action);
@@ -40,7 +50,7 @@ string jsonGetString(Json::Value json, string propertyName)
    {
       throw('There is no Porperty "' + propertyName + '"');
    }
-   return value.SubStr(1, value.Length - 2);
+   return json[propertyName];
 }
 
 Json::Value jsonGetObject(Json::Value json, string propertyName)

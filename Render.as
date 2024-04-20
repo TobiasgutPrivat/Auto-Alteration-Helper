@@ -1,5 +1,5 @@
 const string PluginName = "Alteration Automation";
-bool showInterface;
+bool showInterface = true;
 Json::Value response = Json::Array();
 
 string ConfigurationPath;
@@ -46,15 +46,16 @@ void renderJsonFiles(){
             string[] parts = files[i].Split("/");
             string fileName = parts[parts.Length - 1];
             string confname = fileName.Replace(".json", "");
-            UI::Text(confname);
-            UI::SameLine();
-            if (UI::Button("Run")){
-                try {
+            if (UI::Button("Run " + confname)){
+                print(files[i]);
+                // try {
                     runFromPath(files[i]);
-                } catch { 
-                    response.Add("Error: " + getExceptionInfo());
-                }
+                // } catch { 
+                //     response.Add("Error: " + getExceptionInfo());
+                // }
             };  
+            // UI::SameLine();
+            // UI::Text(confname);
         }
     }
     UI::Separator();
