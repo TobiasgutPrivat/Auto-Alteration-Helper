@@ -15,17 +15,18 @@ void RenderMenu() {
 }
 
 void RenderInterface() {
+    if (!showInterface) {
+        return;
+    }
     if (UI::Begin(PluginName, showInterface, UI::WindowFlags::AlwaysAutoResize)) {
         renderJsonFiles();
-        // UI::Text("Enter Configuration FileName");
-        // ConfigurationPath = UI::InputText("##ConfigurationPath", ConfigurationPath, UI::InputTextFlags::None);
-        // UI::SameLine();
-        // if (UI::Button("Enter")){
-        //     //Start Alterationprocess
-        //     runFromPath(IO::FromStorageFolder(ConfigurationPath) + ".json");
-        // };  
+        renderResponse();
     };
-    // UI::Separator();
+    UI::End();
+}
+
+
+void renderResponse(){
     UI::Text("Response:");
     for(uint i = 0; i < response.Length; i++){
         UI::Text(response[i]);
@@ -33,19 +34,9 @@ void RenderInterface() {
     if (UI::Button("Clear")){
         response = Json::Array();
     };  
-    UI::End();
 }
 
-void sendError(string message){
-    print("Error: " + message);
-    response.Add("Error: " + message);
-}
-void sendResponse(string message){
-    response.Add(message);
-}
-
-void renderJsonFiles()
-{
+void renderJsonFiles(){
     UI::Text("Available Configurations:");
     array<string> files = IO::IndexFolder(IO::FromStorageFolder(""),true);
 
@@ -58,7 +49,11 @@ void renderJsonFiles()
             UI::Text(confname);
             UI::SameLine();
             if (UI::Button("Run")){
-                runFromPath(files[i]);
+                try {
+                    runFromPath(files[i]);
+                } catch { 
+                    response.Add("Error: " + getExceptionInfo());
+                }
             };  
         }
     }

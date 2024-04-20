@@ -2,14 +2,12 @@ void runFromPath(string path)
 {
    Json::Value Configuration;
    if(!IO::FileExists(path)) {
-      sendError("File doesnt exist.\nMake sure to use a Filename of a json File without Fileextension\n(MyFileName.json -> MyFileName)");
-      return;
+      throw("File doesnt exist.\nMake sure to use a Filename of a json File without Fileextension\n(MyFileName.json -> MyFileName)");
    }
    Configuration = Json::FromFile(path);
    if(Json::Write(Configuration) == "null")
    {
-      sendError("File is not in json format");
-      return;
+      throw("File is not in json format");
    }
    runFromJson(Configuration);
 }
@@ -20,41 +18,37 @@ void runFromJson(Json::Value Configuration) {
 //    "Action": "ActionName",
 //    "Settings": {someJsonObject}
 // }
-
-   if(Json::Write(Configuration["Action"]) == "null")
-   {
-      sendError('There is no Porperty "Action"');
-      return;
-   }
-
-   if(Json::Write(Configuration["Settings"]) == "null")
-   {
-      sendError('There is no Porperty "Settings"');
-      return;
-   }
-
-//Start
-   string action = Configuration["Action"];
+   string action = jsonGetString(Configuration,"Action");
    if (action == "AlterCampaign")
    {
-        sendResponse("Alter Canpaign");
+        response.Add("Alter Canpaign");
    }
-   else if (action == "AlterMap")
+   else if (action == 'AlterMap')
    {
-        Altermap(Configuration["Configuration"]);
+        Altermap(jsonGetObject(Configuration, "Settings"));
    }
    else
    {
-      sendError("No Valid ActionName: " + action);
+      throw("No Valid ActionName: " + action);
    }
 }
 
-// string jsonGetProperty(Json::Value json, string prop)
-// {
-//    string value = Json::Write(json[prop]);
-//    if(value == "null")
-//    {
-//       sendError('There is no Porperty "' + prop + '"');
-//       abort();
-//    }
-// }
+string jsonGetString(Json::Value json, string propertyName)
+{
+   string value = Json::Write(json[propertyName]);
+   if(value == "null")
+   {
+      throw('There is no Porperty "' + propertyName + '"');
+   }
+   return value.SubStr(1, value.Length - 2);
+}
+
+Json::Value jsonGetObject(Json::Value json, string propertyName)
+{
+   string value = Json::Write(json[propertyName]);
+   if(value == "null")
+   {
+      throw('There is no Porperty "' + propertyName + '" in ' + Json::Write(json));
+   }
+   return Json::Parse(value);
+}
