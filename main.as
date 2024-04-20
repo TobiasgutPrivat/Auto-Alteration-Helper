@@ -48,3 +48,13 @@ void runFromJson(Json::Value Configuration) {
       sendError("No Valid ActionName: " + action);
    }
 }
+
+// string jsonGetProperty(Json::Value json, string prop)
+// {
+//    string value = Json::Write(json[prop]);
+//    if(value == "null")
+//    {
+//       sendError('There is no Porperty "' + prop + '"');
+//       abort();
+//    }
+// }
