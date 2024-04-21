@@ -4,4 +4,4 @@ author = "Tobias2g"
 category = "Development"
 version = "1.0.0"
 [script]
-dependencies = []
+dependencies = ["Editor"]

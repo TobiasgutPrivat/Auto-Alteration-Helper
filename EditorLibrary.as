@@ -25,7 +25,6 @@ namespace EditorMgt
         }
     }
 
-
     void openEditor(string fileName) {
         app.ManiaTitleControlScriptAPI.EditMap(fileName, "", "");
         startnew(_AwaitEditor);

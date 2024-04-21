@@ -1,8 +1,5 @@
 const string PluginName = "Alteration Automation";
 bool showInterface = true;
-Json::Value response = Json::Array();
-
-string ConfigurationPath;
 
 void RenderMenu() { 
     if (UI::MenuItem(PluginName)) {
@@ -20,26 +17,21 @@ void RenderInterface() {
     }
     if (UI::Begin(PluginName, showInterface, UI::WindowFlags::AlwaysAutoResize)) {
         renderJsonFiles();
-        renderResponse();
     };
     UI::End();
 }
 
-
-void renderResponse(){
-    UI::Text("Response:");
-    for(uint i = 0; i < response.Length; i++){
-        UI::Text(response[i]);
-    }
-    if (UI::Button("Clear")){
-        response = Json::Array();
-    };  
+void loadConfigurations()
+{
+    files = IO::IndexFolder(IO::FromStorageFolder(""),true);
 }
 
 void renderJsonFiles(){
-    UI::Text("Available Configurations:");
-    array<string> files = IO::IndexFolder(IO::FromStorageFolder(""),true);
-
+    if (UI::Button("Reload")){
+        loadConfigurations();
+    };
+    UI::Separator();
+    UI::Text("Configurations: ");
     for (uint i = 0; i < files.Length; i++)
     {
         if(files[i].SubStr(files[i].Length - 5) == ".json"){
@@ -48,13 +40,8 @@ void renderJsonFiles(){
             string confname = fileName.Replace(".json", "");
             if (UI::Button("Run " + confname)){
                 print(files[i]);
-                // try {
-                    runConfFile(files[i]);
-                // } catch { 
-                //     response.Add("Error: " + getExceptionInfo());
-                // }
+                runConfFile(files[i]);
             };
         }
     }
-    UI::Separator();
 }
