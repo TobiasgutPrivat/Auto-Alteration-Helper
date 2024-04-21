@@ -49,13 +49,11 @@ void renderJsonFiles(){
             if (UI::Button("Run " + confname)){
                 print(files[i]);
                 // try {
-                    runFromPath(files[i]);
+                    runConfFile(files[i]);
                 // } catch { 
                 //     response.Add("Error: " + getExceptionInfo());
                 // }
-            };  
-            // UI::SameLine();
-            // UI::Text(confname);
+            };
         }
     }
     UI::Separator();

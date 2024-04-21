@@ -1,0 +1,11 @@
+yes, saving and closing maps isn't exported but the methods are simple enough to copy paste.  
+See SaveAndReloadMap function: 
+https://github.com/XertroV/tm-editor-plus-plus/blob/63c7fd95e3a3c89c4f55abbc91a2cce5bc7bdb7f/src/Editor/Map.as#L102
+
+WRT accessing, placing, and deleteing stuff: yes. 
+Map Together uses such APIs and there are some convenience methods exposed too.
+
+https://github.com/XertroV/tm-editor-plus-plus/blob/master/src/Editor/MacroblockManip_ExportCode.as 
+here are all the exported functions. Particularly, GetCachedMapOctTree() can be used to test for specific blocks and e.g.,
+find which blocks/items from a MacroblockSpec are missing from a map. 
+You can construct macroblock specs, block specs, and item specs from the provided functions.

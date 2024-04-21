@@ -1,6 +1,6 @@
 auto app = cast<CTrackMania>(GetApp());
 
-void runFromPath(string path)
+void runConfFile(string path)
 {
    Json::Value Configuration;
    if(!IO::FileExists(path)) {
@@ -11,10 +11,10 @@ void runFromPath(string path)
    {
       throw("File is not in json format");
    }
-   runFromJson(Configuration);
+   runAction(Configuration);
 }
 
-void runFromJson(Json::Value Configuration) {
+void runAction(Json::Value Configuration) {
 // Format:
 // {
 //    "Action": "ActionName",
@@ -31,11 +31,11 @@ void runFromJson(Json::Value Configuration) {
    }
    else if (action == 'openEditor')
    {
-        openEditor(jsonGetString(Configuration, "Settings"));
+      EditorMgt::openEditor(jsonGetString(Configuration, "Settings"));
    }
    else if (action == 'saveMap')
    {
-      saveMap(Configuration["Settings"]);
+      EditorMgt::SaveAndExitMap();
    }
    else
    {
