@@ -35,7 +35,7 @@ void runAction(Json::Value Configuration) {
    }
    else if (action == 'saveMap')
    {
-      EditorMgt::SaveAndExitMap();
+      EditorMgt::SaveAndExitMap(jsonGetString(Configuration, "Settings"));
    }
    else
    {

@@ -1,32 +1,9 @@
 namespace EditorMgt
 {
-
-    bool SaveMapSameName(CGameCtnEditorFree@ editor) {
-        string fileName = editor.Challenge.MapInfo.FileName;
-        _restoreMapName = editor.Challenge.MapName;
-        if (fileName.Length == 0) {
-            return false;
-        }
-        editor.PluginMapType.SaveMap(fileName + "test");
-        startnew(_RestoreMapName);
-        return true;
-    }
-
-    string _restoreMapName;
-    // set after calling SaveMapSameName
-    void _RestoreMapName() {
-        yield();
-        if (_restoreMapName.Length == 0) return;
-        auto editor = cast<CGameCtnEditorFree>(GetApp().Editor);
-        editor.Challenge.MapName = _restoreMapName;
-    }
-
-    void SaveAndExitMap() {
+    void SaveAndExitMap(string fileName) {
         auto app = cast<CTrackMania>(GetApp());
         auto editor = cast<CGameCtnEditorFree>(app.Editor);
-        if (!SaveMapSameName(editor)) {
-            return;
-        }
+        editor.PluginMapType.SaveMap(fileName);
         startnew(_AwaitEditorReadyForRequest);
         app.BackToMainMenu();
         startnew(_AwaitReturnToMenu);
