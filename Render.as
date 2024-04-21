@@ -40,7 +40,7 @@ void renderJsonFiles(){
             string confname = fileName.Replace(".json", "");
             if (UI::Button("Run " + confname)){
                 print(files[i]);
-                runConfFile(files[i]);
+                runPath = files[i];
             };
         }
     }
