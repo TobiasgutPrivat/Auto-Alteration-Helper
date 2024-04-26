@@ -46,7 +46,7 @@ void Alter(Json::Value actions)
             }
         }
     }
-    Editor::PlaceBlocks(blocks,true);
+    Editor::PlaceBlocks(blocks,false);
     Editor::PlaceItems(items,true);
 }
 
