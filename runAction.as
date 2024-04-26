@@ -5,10 +5,10 @@ void runAction(Json::Value Configuration) {
    }
 
    if (jsonHasProperty(Configuration,"AlterCampaign")) {
-        print(Configuration["AlterCampaign"]);
+      print(Configuration["AlterCampaign"]);
    }
    if (jsonHasProperty(Configuration,"AlterMap")) {
-        Altermap(Configuration["AlterMap"]);
+      Altermap(Configuration["AlterMap"]);
    }
    if (jsonHasProperty(Configuration,"openEditor")) {
       EditorMgt::openEditor(Configuration["openEditor"]);
@@ -16,8 +16,8 @@ void runAction(Json::Value Configuration) {
    if (jsonHasProperty(Configuration,"saveMap")) {
       EditorMgt::SaveAndExitMap(Configuration["saveMap"]);
    }
-   if (jsonHasProperty(Configuration,"deleteBlocks")) {
-      deleteBlocks(Configuration["deleteBlocks"]);
+   if (jsonHasProperty(Configuration,"getCurrBlockName")) {
+      print(getCurrentSelectedBlockName());
    }
 }
 
