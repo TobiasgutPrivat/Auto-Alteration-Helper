@@ -32,17 +32,5 @@ Json::Value getItemMapping(Editor::ItemSpec@[]@ items)
 
 string getCurrentSelectedBlockName(){
     auto editor = cast<CGameCtnEditorFree>(cast<CTrackMania>(GetApp()).Editor);
-    DrawInvNodeTree(editor.PluginMapType.Inventory.CurrentRootNode);
     return(editor.PluginMapType.Inventory.CurrentSelectedNode.Name);
 }
-
-    void DrawInvNodeTree(CGameCtnArticleNode@ node) {
-        if (node.IsDirectory) {
-            print(node.Name);
-            for (uint i = 0; i < cast<CGameCtnArticleNodeDirectory>(node).ChildNodes.Length; i++) {
-                DrawInvNodeTree(cast<CGameCtnArticleNodeDirectory>(node).ChildNodes[i]);
-            }
-        } else {
-            print(node.Name);
-        }
-    }
