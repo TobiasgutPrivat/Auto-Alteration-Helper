@@ -12,7 +12,7 @@ namespace EditorMgt
     }
 
     void AwaitEditorReadyForRequest() {
-        CGameCtnEditorFree@ editor = cast<CGameCtnEditorFree>(app.Editor);
+        CGameCtnEditorFree@ editor = cast<CGameCtnEditorFree>(cast<CTrackMania>(GetApp()).Editor);
         while (!editor.PluginMapType.IsEditorReadyForRequest) yield();
         return;
     }
@@ -29,7 +29,7 @@ namespace EditorMgt
     }
 
     void openEditor(string fileName) {
-        app.ManiaTitleControlScriptAPI.EditMap(fileName, "", "");
+        cast<CTrackMania>(GetApp()).ManiaTitleControlScriptAPI.EditMap(fileName, "", "");
         AwaitEditor();
     }
 

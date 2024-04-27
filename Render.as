@@ -1,4 +1,3 @@
-const string PluginName = "Alteration Automation";
 bool showInterface = true;
 
 void RenderMenu() { 
@@ -23,7 +22,8 @@ void RenderInterface() {
 
 void loadConfigurations()
 {
-    files = IO::IndexFolder(IO::FromStorageFolder(""),true);
+    configurationPaths = IO::IndexFolder(IO::FromStorageFolder("") + scriptFolder,true);
+    alterationPaths = IO::IndexFolder(IO::FromStorageFolder("") + alterationFolder,true);
 }
 
 void renderJsonFiles(){
@@ -32,16 +32,31 @@ void renderJsonFiles(){
     };
     UI::Separator();
     UI::Text("Configurations: ");
-    for (uint i = 0; i < files.Length; i++)
+    for (uint i = 0; i < configurationPaths.Length; i++)
     {
-        if(files[i].SubStr(files[i].Length - 5) == ".json"){
-            string[] parts = files[i].Split("/");
-            string fileName = parts[parts.Length - 1];
-            string confname = fileName.Replace(".json", "");
-            if (UI::Button("Run " + confname)){
-                print(files[i]);
-                runPath = files[i];
+        if((configurationPaths[i].SubStr(configurationPaths[i].Length - 5) == ".json") && !(configurationPaths[i].SubStr(configurationPaths[i].Length - 16) == ".alteration.json")){
+
+            if (UI::Button("Run " + getFileName(configurationPaths[i]))){
+                print(configurationPaths[i]);
+                runPath = configurationPaths[i];
             };
         }
     }
+    UI::Text("Alterations: ");
+    for (uint i = 0; i < alterationPaths.Length; i++)
+    {
+        if(alterationPaths[i].SubStr(alterationPaths[i].Length - 5) == ".json"){
+            if (UI::Button("Run " + getFileName(alterationPaths[i]))){
+                print(alterationPaths[i]);
+                runAlteration = alterationPaths[i];
+            };
+        }
+    }
+}
+
+string getFileName(string path)
+{
+    string[] parts = path.Split("/");
+    string fileName = parts[parts.Length - 1];
+    return(fileName.Replace(".json", ""));
 }

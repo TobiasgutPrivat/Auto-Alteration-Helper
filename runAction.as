@@ -19,6 +19,9 @@ void runAction(Json::Value Configuration) {
    if (jsonHasProperty(Configuration,"getCurrBlockName")) {
       print(getCurrentSelectedBlockName());
    }
+   if (jsonHasProperty(Configuration,"Alterations")){
+      AlterationSet(Configuration["Alterations"]).run();
+   }
 }
 
 void runArray(Json::Value jsonArray)
@@ -27,18 +30,4 @@ void runArray(Json::Value jsonArray)
    {
       runAction(jsonArray[i]);
    }
-}
-
-void runConfFile(string path)
-{
-   Json::Value Configuration;
-   if(!IO::FileExists(path)) {
-      throw("File doesnt exist.\nMake sure to use a Filename of a json File without Fileextension\n(MyFileName.json -> MyFileName)");
-   }
-   Configuration = Json::FromFile(path);
-   if(Json::Write(Configuration) == "null")
-   {
-      throw("File is not in json format");
-   }
-   runAction(Configuration);
 }
