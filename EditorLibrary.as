@@ -1,7 +1,5 @@
-namespace EditorMgt
+namespace EditorLib
 {
-    bool mapopened = false;
-    bool mapsaved = false;
     void SaveAndExitMap(string fileName) {
         auto app = cast<CTrackMania>(GetApp());
         auto editor = cast<CGameCtnEditorFree>(app.Editor);
@@ -25,7 +23,6 @@ namespace EditorMgt
         while (!app.ManiaTitleControlScriptAPI.IsReady) {
             yield();
         }
-        mapsaved = true;
     }
 
     void openEditor(string fileName) {
@@ -39,7 +36,15 @@ namespace EditorMgt
         auto editor = cast<CGameCtnEditorFree>(GetApp().Editor);
         while (!editor.PluginMapType.IsEditorReadyForRequest) yield();
         print("actually opened");
-        mapopened = true;
+    }
+
+    string getCurrentSelectedBlockName(){
+        auto editor = cast<CGameCtnEditorFree>(cast<CTrackMania>(GetApp()).Editor);
+        try{
+            return(editor.PluginMapType.Inventory.CurrentSelectedNode.Name);
+        } catch{
+            return "";
+        }
     }
 }
 
