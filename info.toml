@@ -1,7 +1,7 @@
 [meta]
-name = "AutoAlteration"
+name = "AlterationHelper"
 author = "Tobias2g"
 category = "Development"
 version = "1.0.0"
 [script]
-dependencies = ["Editor"]
+dependencies = ["Editor", "MLHook", "MLFeedRaceData"]
