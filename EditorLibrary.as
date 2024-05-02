@@ -2,7 +2,9 @@ void SaveAndExitMap(string fileName) {
     auto app = cast<CTrackMania>(GetApp());
     auto editor = cast<CGameCtnEditorFree>(app.Editor);
     editor.PluginMapType.SaveMap(fileName);
+    print("savemap");
     AwaitEditorReadyForRequest();
+    print("ReadyForRequest");
     app.BackToMainMenu();
     AwaitReturnToMenu();
 }
