@@ -46,3 +46,26 @@ string getCurrentSelectedBlockName(){
         return "";
     }
 }
+
+bool SaveMapSameName(CGameCtnEditorFree@ editor) {
+    string fileName = editor.Challenge.MapInfo.FileName;
+    _restoreMapName = editor.Challenge.MapName;
+    if (fileName.Length == 0) {
+        print("Map must be saved, first.");
+        return false;
+    }
+    editor.PluginMapType.SaveMap(fileName);
+    startnew(_RestoreMapName);
+    print('saved map');
+    return true;
+}
+
+string _restoreMapName;
+// set after calling SaveMapSameName
+void _RestoreMapName() {
+    yield();
+    if (_restoreMapName.Length == 0) return;
+    auto editor = cast<CGameCtnEditorFree>(GetApp().Editor);
+    editor.Challenge.MapName = _restoreMapName;
+    print('restored map name: ' + _restoreMapName);
+}
